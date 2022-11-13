@@ -1,16 +1,32 @@
 import {Router as router} from 'express';
-import {v4 as uuid} from 'uuid';
-import type {CategoryType} from '../model/Category';
-import {Category} from '../model/Category';
+import type {CreateCategoryDto} from '../model/Category';
+import {CategoriesRepository} from '../repositories/CategoriesRepository';
+import {CreateCategoryService} from '../services/CreateCategoryService';
 const categoriesRoutes = router();
-const categories: CategoryType [] = [];
-
+const categoriesRepository = new CategoriesRepository();
+const createCategoryService = new CreateCategoryService(categoriesRepository);
 categoriesRoutes.post('/', (request, response) => {
-	const {description, name} = request.body as CategoryType;
-	const createdAt = new Date();
-	const category = new Category({createdAt, description, name});
+	const {description, name} = request.body as CreateCategoryDto;
+	try {
+		createCategoryService.execute({description, name});
+	} catch (error: unknown) {
+		console.error(error);
+		response.status(422).json(error);
+	}
 
-	categories.push(category);
-	response.status(201).json(category);
+	return response.status(201).send();
+});
+categoriesRoutes.get('/', (request, response) => {
+	const categories = categoriesRepository.list();
+	return response.json(categories);
+});
+categoriesRoutes.get('/:name', (request, response) => {
+	const {name} = request.params;
+	const category = categoriesRepository.getCategoryByName(name);
+	if (!category) {
+		return response.status(404).json({error: 'Category not found.'});
+	}
+
+	return response.json(category);
 });
 export {categoriesRoutes};
