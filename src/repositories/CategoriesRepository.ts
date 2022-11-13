@@ -1,7 +1,7 @@
-import type {CreateCategoryDto} from '../model/Category';
+import type {CreateCategoryDto, InterfaceCreateCategoriesRepository} from './ICategoriesRepository';
 import {Category} from '../model/Category';
 
-export class CategoriesRepository {
+export class CategoriesRepository implements InterfaceCreateCategoriesRepository {
 	private readonly categories: Category[];
 	constructor() {
 		this.categories = [];

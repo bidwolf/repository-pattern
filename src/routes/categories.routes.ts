@@ -1,5 +1,5 @@
 import {Router as router} from 'express';
-import type {CreateCategoryDto} from '../model/Category';
+import type {CreateCategoryDto} from '../repositories/ICategoriesRepository';
 import {CategoriesRepository} from '../repositories/CategoriesRepository';
 import {CreateCategoryService} from '../services/CreateCategoryService';
 const categoriesRoutes = router();
