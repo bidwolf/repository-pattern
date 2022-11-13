@@ -5,10 +5,6 @@ export type CategoryType = {
 	id?: string;
 	createdAt: Date;
 };
-export type CreateCategoryDto = {
-	name: string;
-	description: string;
-};
 export class Category implements CategoryType {
 	id?: string | undefined;
 	name: string;

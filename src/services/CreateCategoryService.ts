@@ -1,4 +1,3 @@
-import type {Category} from '../model/Category';
 import type {InterfaceCreateCategoriesRepository as ICreateCategoriesRepository} from '../repositories/ICategoriesRepository';
 
 type Request = {
@@ -6,7 +5,7 @@ type Request = {
 	description: string;
 };
 export class CreateCategoryService {
-	constructor(private readonly categoriesRepository: InterfaceCreateCategoriesRepository) {}
+	constructor(private readonly categoriesRepository: ICreateCategoriesRepository) {}
 	execute({name, description}: Request) {
 		const categoryExists = this.categoriesRepository.getCategoryByName(name);
 		if (categoryExists) {
