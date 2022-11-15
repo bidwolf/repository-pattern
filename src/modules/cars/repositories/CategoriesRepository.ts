@@ -1,32 +1,22 @@
-import type {CreateCategoryDto, InterfaceCreateCategoriesRepository as ICreateCategoriesRepository} from './ICategoriesRepository';
-import {Category} from '../model/Category';
+import type {Category} from '../model/Category';
+import {DefaultJsRepository} from './defaultJSRepository';
+import type {CategoryRepository as InterfaceCategoryRepository} from '.';
+export class CategoriesRepository extends DefaultJsRepository<Category> implements InterfaceCategoryRepository {
+	public static getInstance(): CategoriesRepository {
+		if (!CategoriesRepository.instance) {
+			CategoriesRepository.instance = new CategoriesRepository();
+		}
 
-export class CategoriesRepository implements ICreateCategoriesRepository {
-	private readonly categories: Category[];
-	constructor() {
-		this.categories = [];
+		return CategoriesRepository.instance;
+	}
+
+	private static instance: CategoriesRepository;
+	private constructor() {
+		super([]);
 	}
 
 	getCategoryByName(name: string): Category | undefined {
-		const category = this.categories.find(category => category.name === name.toLocaleLowerCase());
+		const category = this.dataBase.find(category => category.name === name);
 		return category;
-	}
-
-	list(): Category[] {
-		return this.categories;
-	}
-
-	createCategory({description, name}: CreateCategoryDto): void {
-		const category = new Category({name, createdAt: new Date(), description});
-		this.categories.push(category);
-	}
-
-	deleteCategory(id: string): Category | undefined {
-		const deletedIndex = this.categories.findIndex(category => id === category.id);
-		if (deletedIndex >= 0) {
-			const deletedCategory = this.categories[deletedIndex];
-			this.categories.splice(deletedIndex, 1);
-			return deletedCategory;
-		}
 	}
 }

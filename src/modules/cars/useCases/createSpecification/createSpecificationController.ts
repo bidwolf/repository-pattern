@@ -1,7 +1,11 @@
 import type {Request, Response} from 'express';
-import type {InterfaceCreateSpecificationUseCase, InterfaceRequest} from './createSpecificationUseCase';
+import type {InterfaceCreateSpecificationUseCase} from './createSpecificationUseCase';
 type InterfaceCreateSpecificationController = {
 	handle: (request: Request, response: Response) => Response;
+};
+type InterfaceRequest = {
+	name: string;
+	description: string;
 };
 export class CreateSpecificationController implements InterfaceCreateSpecificationController {
 	constructor(private readonly createSpecificationUseCase: InterfaceCreateSpecificationUseCase) {

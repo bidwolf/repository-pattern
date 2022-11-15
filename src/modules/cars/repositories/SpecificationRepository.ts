@@ -19,8 +19,4 @@ export class SpecificationRepository extends DefaultJsRepository<Specification> 
 		const specification = this.dataBase.find(specification => specification.name === name);
 		return specification;
 	}
-
-	list() {
-		return this.dataBase;
-	}
 }

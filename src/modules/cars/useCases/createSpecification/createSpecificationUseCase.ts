@@ -1,5 +1,5 @@
 import type {SpecificationRepository} from '../../repositories/';
-export type InterfaceRequest = {
+type InterfaceRequest = {
 	name: string;
 	description: string;
 };

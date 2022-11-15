@@ -12,4 +12,9 @@ export abstract class DefaultJsRepository <T> extends Repository<T> {
 		const {model} = new BaseModel<T>(data);
 		this.dataBase.push(model);
 	}
+
+	public list(): T[] {
+		const elements = this.dataBase;
+		return elements;
+	}
 }

@@ -7,4 +7,4 @@ export type BaseRepository<T> = {
 	list (): T[];
 };
 export type SpecificationRepository = BaseRepository<Specification> & {getSpecificationByName(name: string): Specification | undefined};
-export type CategoryRepository = BaseRepository<Category>;
+export type CategoryRepository = BaseRepository<Category> & {getCategoryByName(name: string): Category | undefined};
