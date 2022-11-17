@@ -21,6 +21,7 @@ export class ImportCategoryUseCase implements InterfaceImportCategoryUseCase {
 				const [name, description] = line;
 				loadedCategories.push({name, description});
 			}).on('end', () => {
+				void fs.promises.unlink(file.path);
 				resolve(loadedCategories);
 			}).on('error', error => {
 				reject(error);

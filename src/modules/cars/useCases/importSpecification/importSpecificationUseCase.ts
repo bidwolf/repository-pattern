@@ -21,6 +21,7 @@ export class ImportSpecificationUseCase implements InterfaceImportSpecificationU
 				const [name, description] = line;
 				loadedSpecifications.push({name, description});
 			}).on('end', () => {
+				void fs.promises.unlink(file.path);
 				resolve(loadedSpecifications);
 			}).on('error', error => {
 				reject(error);
