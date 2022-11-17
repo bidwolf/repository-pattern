@@ -1,8 +1,8 @@
 import type {Request, Response} from 'express';
-import type {InterfaceImportCategoryUseCase} from './importCategoryUseCase';
+import type {InterfaceImportSpecificationUseCase} from './importSpecificationUseCase';
 
-export class ImportCategoryController {
-	constructor(private readonly importCategoryUseCase: InterfaceImportCategoryUseCase) {}
+export class ImportSpecificationController {
+	constructor(private readonly importSpecificationUseCase: InterfaceImportSpecificationUseCase) {}
 	async handle(request: Request, response: Response): Promise<Response> {
 		const {file} = request;
 		if (!file) {
@@ -10,7 +10,7 @@ export class ImportCategoryController {
 		}
 
 		try {
-			await this.importCategoryUseCase.execute(file);
+			await this.importSpecificationUseCase.execute(file);
 			return response.send();
 		} catch (error: unknown) {
 			console.error(error);
